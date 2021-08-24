@@ -8,37 +8,38 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-var roundScore, scores, activePlayer , gamePlaying;
+var roundScore, scores, activePlayer , gamePlaying , count, lastRoll;
+count = 0;
+lastRoll = 0;
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying){
- // do something here
-    // 1. Random number
+ // 1. Random number
     var  dice = Math.floor(Math.random() * 6) +1;
-
-    // 2. display the result
-    var diceDom = document.querySelector('.dice');
+    var currentRoll = dice;
+    if(dice == 6){
+        lastRoll = 6;
+        count += 1;
+    }else{
+        lastRoll = 0;
+        count = 0;
+    }
+ 
+//     // 2. display the result
+   var diceDom = document.querySelector('.dice');
     diceDom.style.display = 'block';
     diceDom.src = 'dice-' + dice + '.png'; 
-   
     //3. update roundscore IF rolled number was NOT a 1
-    if(dice !== 1){
-        // add score
+     if((currentRoll == 6 && lastRoll == 6 && count == 2 ) || dice == 1){
+         // add score
+        
+       nextPlayer();
+     }else{
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    }else{
-        //next player
-        nextPlayer();
-
-    }
-
-    }
-    
-   
-
-
-
+     }
+     }
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
@@ -85,9 +86,7 @@ document.querySelector('.player-0-panel').classList.remove('active');
 document.querySelector('.player-1-panel').classList.remove('active');
 document.querySelector('.player-0-panel').classList.add('active');
 
-
-
-};
+}
 function nextPlayer(){
  // next player
  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
@@ -98,7 +97,4 @@ function nextPlayer(){
  document.querySelector('.player-0-panel').classList.toggle('active');
  document.querySelector('.player-1-panel').classList.toggle('active');
 
-};
-//document.querySelector('#current-' + activePlayer).textContent = dice;
-// //document.querySelector('#current-' + activePlayer).innerHTML = '<h6>anga</h6>'
-// var x = document.querySelector('#score-0').textContent;
+}
