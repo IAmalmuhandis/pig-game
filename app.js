@@ -11,7 +11,10 @@ GAME RULES:
 var scores = [0,0];
 var roundScore, activePlayer , dice;
 roundScore = 0;
-activePlayer = 0;
+activePlayer = 1;
 dice = Math.floor(Math.random() * 6) +1;
 
-document.querySelector('#score-0').textContent = dice;
+//document.querySelector('#current-' + activePlayer).textContent = dice;
+//document.querySelector('#current-' + activePlayer).innerHTML = '<h6>anga</h6>'
+document.querySelector('.dice').style.display = 'none';
+document.querySelector('.btn-roll').addEventListener('click',)
